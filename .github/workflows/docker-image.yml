@@ -26,4 +26,4 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: test_repo1/sample_docker_image_test:latest
+          tags: chphanisaisriram/test_repo1:latest
