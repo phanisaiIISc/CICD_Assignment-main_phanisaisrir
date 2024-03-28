@@ -1,4 +1,4 @@
-name: Create a Docker Image and Run
+name: Create a Docker Image and Run test script
 
 on:
   push:
