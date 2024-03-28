@@ -30,7 +30,7 @@ jobs:
           OUTPUT=$(python test.py)
           echo "Score:"
           echo "$OUTPUT"
-          if [[ `echo "$OUTPUT 0.50" | awk '{print ($1 < $2)}'` == 1 ]]; then echo "Insufficient Accuracy" && exit 0; fi
+          if [[ `echo "$OUTPUT 0.50" | awk '{print ($1 < $2)}'` == 1 ]]; then echo "Insufficient Accuracy" && exit 1; fi
   build:  
     needs: [evaluate]
     runs-on: ubuntu-latest
