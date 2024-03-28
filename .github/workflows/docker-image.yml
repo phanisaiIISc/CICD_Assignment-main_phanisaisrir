@@ -2,9 +2,9 @@ name: Create a Docker Image and RUn
 
 on:
   push:
-    branches: [ "mainnn" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "mainnn" ]
+    branches: [ "main" ]
 
 jobs:
   build:      
@@ -22,8 +22,4 @@ jobs:
         with:
           push: true
           tags: chphanisaisriram/test_repo1:SampleDockerImage_1
-      - name: run test.py
-        run: |
-          OUTPUT=$(python test.py)
-          echo "Score:"
-          echo "$OUTPUT"
+
