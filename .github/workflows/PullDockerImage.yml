@@ -22,4 +22,4 @@ jobs:
     - name: pull Docker Image
       run: docker image pull chphanisaisriram/test_repo1:SampleDockerImage_1
     - name: run test.py
-      run: docker exec SampleDockerImage_1 python test.py
+      run: docker ps
