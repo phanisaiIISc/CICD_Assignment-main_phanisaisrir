@@ -23,3 +23,5 @@ jobs:
       run: docker image pull chphanisaisriram/test_repo1:SampleDockerImage_1
     - name: run the image
       run: docker run chphanisaisriram/test_repo1:SampleDockerImage_1
+    - name: check the containers running
+      run: docker ps
