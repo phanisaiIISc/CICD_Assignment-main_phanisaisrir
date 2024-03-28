@@ -21,3 +21,5 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: pull Docker Image
       run: docker image pull chphanisaisriram/test_repo1:SampleDockerImage_1
+    - name: run test.py
+      run: docker exec chphanisaisriram/test_repo1:SampleDockerImage_1 python test.py
