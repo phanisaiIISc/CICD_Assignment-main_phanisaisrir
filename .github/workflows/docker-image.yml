@@ -1,4 +1,4 @@
-name: Create a Docker Image and RUn
+name: Create a Docker Image and Run
 
 on:
   push:
