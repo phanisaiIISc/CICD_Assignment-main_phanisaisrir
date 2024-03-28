@@ -22,6 +22,10 @@ jobs:
     - name: pull Docker Image
       run: docker image pull chphanisaisriram/test_repo1:SampleDockerImage_1
     - name: run the image
-      run: docker run chphanisaisriram/test_repo1:SampleDockerImage_1
+      run: |
+        OUTPUT=$(docker run chphanisaisriram/test_repo1:SampleDockerImage_1)
+        echo "Score:"
+        echo "$OUTPUT"
+        
     - name: check the containers running
       run: docker ps
