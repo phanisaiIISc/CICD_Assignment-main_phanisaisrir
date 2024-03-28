@@ -43,4 +43,4 @@ jobs:
         OUTPUT=$(docker run chphanisaisriram/mlops:ci_cd_v1)
         echo "Score:"
         echo "$OUTPUT"
-        if [[ `echo "$OUTPUT 0.329" | awk '{print ($1 < $2)}'` == 1 ]]; then echo "Insufficient Accuracy" && exit 1; fi
+        if [[ `echo "$OUTPUT 0.329" | awk '{print ($1 < $2)}'` == 1 ]]; then echo "Insufficient Accuracy" && exit 1; else echo "Sufficient Accuracy." fi
