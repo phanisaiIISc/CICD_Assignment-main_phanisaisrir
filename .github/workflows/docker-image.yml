@@ -2,9 +2,9 @@ name: Create a Docker Image and Run test script
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "mainnn" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "mainnn" ]
 
 jobs:
   build:      
