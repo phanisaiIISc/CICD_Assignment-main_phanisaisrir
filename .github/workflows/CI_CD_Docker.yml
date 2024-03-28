@@ -6,7 +6,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-
+#This job is to build the Docker file
   build_docker:
 
     runs-on: ubuntu-latest
@@ -24,6 +24,7 @@ jobs:
         with:
           push: true
           tags: chphanisaisriram/mlops:ci_cd_v1
+  #This job is to pull the Docker image from the above and run the test.py script
   pull_docker:
     
     if: ${{ always() }}
@@ -44,4 +45,4 @@ jobs:
         echo "Score:"
         echo "$OUTPUT"
         if [[ `echo "$OUTPUT 0.329" | awk '{print ($1 < $2)}'` == 1 ]]; then echo "Insufficient Accuracy" && exit 1;  fi
-        echo "test.py executed Successfully."
+        echo "test.py script executed Successfully."
