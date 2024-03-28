@@ -26,6 +26,4 @@ jobs:
         OUTPUT=$(docker run chphanisaisriram/test_repo1:SampleDockerImage_1)
         echo "Score:"
         echo "$OUTPUT"
-        
-    - name: check the containers running
-      run: docker ps
+        if [[ `echo "$OUTPUT 0.50" | awk '{print ($1 < $2)}'` == 1 ]]; then echo "Insufficient Accuracy" && exit 1; fi
