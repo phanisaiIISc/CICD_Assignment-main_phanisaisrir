@@ -30,9 +30,8 @@ jobs:
           OUTPUT=$(python test.py)
           echo "Score:"
           echo "$OUTPUT"
-          if [[ `echo "$OUTPUT 0.329" | awk '{print ($1 < $2)}'` == 1 ]]; then echo "Insufficient Accuracy" && exit 1; fi
-  build:  
-    needs: [evaluate]
+          if [[ `echo "$OUTPUT 0.5" | awk '{print ($1 < $2)}'` == 1 ]]; then echo "Insufficient Accuracy" && exit 1; fi
+  build:      
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3    
@@ -46,4 +45,4 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: chphanisaisriram/test_repo1:SampleDockerImage_1
+          tags: chphanisaisriram/test_repo1_fail_test:SampleDockerImage_1
