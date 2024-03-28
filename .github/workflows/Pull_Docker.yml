@@ -1,0 +1,28 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "mainnnnn" ]
+  pull_request:
+    branches: [ "mainnnn" ]
+
+jobs:
+
+  pull_docker:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Log in to registry
+      uses: docker/login-action@v2
+      with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: pull Docker Image
+      run: docker image pull chphanisaisriram/mlops:ci_cd_v1
+    - name: run the image
+      run: |
+        OUTPUT=$(docker run chphanisaisriram/mlops:ci_cd_v1)
+        echo "Score:"
+        echo "$OUTPUT"
+        if [[ `echo "$OUTPUT 0.329" | awk '{print ($1 < $2)}'` == 1 ]]; then echo "Insufficient Accuracy" && exit 1;  fi
+        echo "test.py script executed Successfully."
