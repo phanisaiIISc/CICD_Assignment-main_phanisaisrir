@@ -1,5 +1,5 @@
 name: Pull and Run Docker Image
-
+#Run the workflow after the Docker Image Building is completed.
 on:
   workflow_run:
         workflows: ['Push Docker Image']
@@ -12,13 +12,13 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Log in to registry
-      uses: docker/login-action@v2
+      uses: docker/login-action@v2 # Use this action to login to Docker Repo
       with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: pull Docker Image
-      run: docker image pull chphanisaisriram/mlops:ci_cd_v1
-    - name: run the image
+      run: docker image pull chphanisaisriram/mlops:ci_cd_v1 #Pull the Docker Image
+    - name: run the image #Start the container and capture the output
       run: |
         OUTPUT=$(docker run chphanisaisriram/mlops:ci_cd_v1)
         echo "Score:"
