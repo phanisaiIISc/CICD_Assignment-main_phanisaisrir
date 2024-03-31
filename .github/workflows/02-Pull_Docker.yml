@@ -6,8 +6,23 @@ on:
         types: [completed]
 
 jobs:
-
-  pull_docker:
+  check-docker-build-workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if the docker is build and published
+        id: check_status
+        run: |
+          previous_run=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/workflow_id/runs?per_page=5&page=1" | jq -r '.workflow_runs[0].conclusion')
+          
+          echo "Previous workflow status: $previous_run"          
+          # Set output variable
+          echo "::set-output name=conclusion::$previous_run"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  pull_docker:    
+    needs: check-docker-build-workflow
+    if: ${{ needs.check-docker-build-workflow.outputs.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -25,3 +40,11 @@ jobs:
         echo "$OUTPUT"
         if [[ `echo "$OUTPUT 0.5" | awk '{print ($1 < $2)}'` == 1 ]]; then echo "Insufficient Accuracy" && exit 1;  fi
         echo "test.py script executed Successfully."
+  fail-job:    
+    needs: check-docker-build-workflow
+    if: ${{ needs.check-docker-build-workflow.outputs.conclusion == 'failure' }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: fail the job
+      run: | 
+          exit 1
