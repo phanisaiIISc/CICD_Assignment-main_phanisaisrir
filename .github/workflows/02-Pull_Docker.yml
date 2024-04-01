@@ -6,13 +6,13 @@ on:
         types: [completed]
 
 jobs:
-  check-docker-build-workflow:
+  success-flow:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - run: echo "First workflow was a success"
-  fail-job:    
-    needs: check-docker-build-workflow
+      
+  fail-job:
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     runs-on: ubuntu-latest
     steps:
