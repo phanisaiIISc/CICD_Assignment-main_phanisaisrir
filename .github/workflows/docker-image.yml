@@ -17,3 +17,4 @@ jobs:
     - name: something
       run: |
           echo 1
+          exit 1
