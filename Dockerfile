@@ -1,4 +1,4 @@
-#Install Python Version in the Docker Image
+#Install Python Version in the Docker Image.
 FROM python:3.11
 #Copy all the files to Current Working Directory
 COPY . .
@@ -7,4 +7,4 @@ RUN pip install -r requirements.txt
 #Train the Model
 RUN python train.py
 #Run the test.py when Container runs
-CMD ["pythonno", "testo.py"]
+CMD ["python", "test.py"]
