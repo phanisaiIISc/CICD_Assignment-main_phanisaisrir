@@ -1,4 +1,4 @@
-#Use Python Version 3.11
+#Use Python Version 3.11 in the docker
 FROM python:3.11
 #Copy all the files to current Location
 COPY . .
