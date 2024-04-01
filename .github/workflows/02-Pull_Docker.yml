@@ -8,52 +8,15 @@ on:
 jobs:
   check-docker-build-workflow:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - name: Check if the docker is build and published
-        id: check_status
-        run: |
-          echo "Rerpo"
-          echo "${{ github.repository }}"
-          echo "Owner"
-          echo "${{ github.repository.owner }}"
-          #previous_run=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          #  "https://api.github.com/repos/${{ github.repository }}/actions/workflows/docker-image/runs?per_page=5&page=2" | jq -r '.workflow_runs[0].conclusion')
-          curl -L \
-          -H "Accept: application/vnd.github+json" \
-          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-          -H "X-GitHub-Api-Version: 2022-11-28" \
-          https://api.github.com/repos/${{ github.repository }}/actions/workflows
-          
-          echo "Previous workflow status: $previous_run"          
-          # Set output variable
-          echo "::set-output name=conclusion::$previous_run"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  pull_docker:    
-    needs: check-docker-build-workflow
-    if: ${{ needs.check-docker-build-workflow.outputs.conclusion == 'success' }}
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Log in to registry
-      uses: docker/login-action@v2
-      with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: pull Docker Image
-      run: docker image pull chphanisaisriram/mlops:ci_cd_v1
-    - name: run the image
-      run: |
-        OUTPUT=$(docker run chphanisaisriram/mlops:ci_cd_v1)
-        echo "Score:"
-        echo "$OUTPUT"
-        if [[ `echo "$OUTPUT 0.5" | awk '{print ($1 < $2)}'` == 1 ]]; then echo "Insufficient Accuracy" && exit 1;  fi
-        echo "test.py script executed Successfully."
+      - run: echo "First workflow was a success"
   fail-job:    
     needs: check-docker-build-workflow
-    if: ${{ needs.check-docker-build-workflow.outputs.conclusion == 'failure' }}
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     runs-on: ubuntu-latest
     steps:
     - name: fail the job
       run: | 
+          echo "First Workflow failed."
           exit 1
