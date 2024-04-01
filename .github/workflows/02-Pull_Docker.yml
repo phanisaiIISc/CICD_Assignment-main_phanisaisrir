@@ -13,7 +13,7 @@ jobs:
         id: check_status
         run: |
           previous_run=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/01-CI_DockerImage_Push.yml/runs?per_page=5&page=1" | jq -r '.workflow_runs[0].conclusion')
+            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/docker-image.yml/runs?per_page=5&page=2" | jq -r '.workflow_runs[0].conclusion')
           
           echo "Previous workflow status: $previous_run"          
           # Set output variable
