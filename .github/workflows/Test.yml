@@ -1,4 +1,4 @@
-name: Pull and Run Docker Image
+name: Train
 
 on:
   workflow_run:
