@@ -1,11 +1,10 @@
 name: TrainAndBuildDocker
 on:
-  push:
-    branches: [ "main" ]
-  #pull_request:
+  #push:
   #  branches: [ "main" ]
-  #  types:
-  #    - closed
+  pull_request:
+    branches: [ "main" ]
+    
 
 jobs:
 #This job is to build the Docker file
@@ -14,7 +13,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3    
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
       - name: Login to Docker Hub
         uses: docker/login-action@v2 #Login to Docker 
         with:
