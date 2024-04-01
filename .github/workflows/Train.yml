@@ -1,11 +1,10 @@
 name: TrainAndBuildDocker
 on:
-  push:
-    branches: [ "main" ]
-  #pull_request:
+  #push:
   #  branches: [ "main" ]
-  #  types:
-  #    - closed
+  pull_request:
+    branches: [ "main" ]
+    
 
 jobs:
 #This job is to build the Docker file
