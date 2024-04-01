@@ -1,12 +1,10 @@
-#Use Python Version 3.11 in the docker Image
+#Install Python Version in the Docker Image.
 FROM python:3.11
-#Copy all the files to current Location
+#Copy all the files to Current Working Directory
 COPY . .
-#Install dependencies
+#Install Required Packages
 RUN pip install -r requirements.txt
-#Train the model
+#Train the Model
 RUN python train.py
-# Execute test.py script once container starts
-CMD ["python", "test.py"]
-
-
+#Run the test.py when Container runs
+CMD ["pythonno", "testo.py"]
