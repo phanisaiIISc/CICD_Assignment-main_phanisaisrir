@@ -1,8 +1,8 @@
-name: Train
+name: Pull Image and Test
 
 on:
   workflow_run:
-        workflows: ['Train']
+        workflows: ['TrainAndBuildDocker']
         types: [completed]
 
 jobs:
