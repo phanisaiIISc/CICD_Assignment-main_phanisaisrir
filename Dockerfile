@@ -1,5 +1,5 @@
 #Install Python Version into Image
-FROMMM python:55.11
+FROM python:55.11
 COPY . .
 #Install required dependencies
 RUN pip install -r requirements.txt
