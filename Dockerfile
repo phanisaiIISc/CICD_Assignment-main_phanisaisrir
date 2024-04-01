@@ -8,3 +8,4 @@ RUN pip install -r requirements.txt
 RUN python train.py
 #Run the test.py when Container runs
 CMD ["python", "test.py"]
+
