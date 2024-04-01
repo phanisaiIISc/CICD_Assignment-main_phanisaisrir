@@ -1,4 +1,4 @@
-#Install Python Version into Image
+#Install Python Version into Image.
 FROM python:55.11
 COPY . .
 #Install required dependencies
