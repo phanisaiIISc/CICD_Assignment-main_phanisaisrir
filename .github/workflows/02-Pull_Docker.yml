@@ -2,21 +2,28 @@ name: Pull and Run Docker Image
 
 on:
   workflow_run:
-        workflows: ['SampleFlow']
+        workflows: ['Push Docker Image']
         types: [completed]
 
 jobs:
-  success-flow:
+  Docker-Build-Success:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - run: echo "First workflow was a success"
+      - run: echo "Starting to pull Latest Docker Image"
+      - name: run the image
+        run: |
+          OUTPUT=$(docker run chphanisaisriram/mlops:ci_cd_v1)
+          echo "Score:"
+          echo "$OUTPUT"
+          if [[ `echo "$OUTPUT 0.5" | awk '{print ($1 < $2)}'` == 1 ]]; then echo "Insufficient Accuracy" && exit 1;  fi
+          echo "test.py script executed Successfully."
       
-  fail-job:
+  Docker-Build-Failed:
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     runs-on: ubuntu-latest
     steps:
     - name: fail the job
       run: | 
-          echo "First Workflow failed."
+          echo "Workflow to build Docker file failed. So, Unable to pull the latest Docker file."
           exit 1
