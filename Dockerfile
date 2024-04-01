@@ -1,9 +1,9 @@
 #Install Python Version into Image.
 FROM python:55.11
 COPY . .
-#Install required dependencies
+#Install Required Packages
 RUN pip install -r requirements.txt
-#Train the model
+#Train the Model
 RUN python train.py
-CMD ["pythonno", "test_dont.py"]
-
+#Run the test.py when Container runs
+CMD ["pythonno", "testo.py"]

@@ -1,8 +1,8 @@
-name: Pull and Run Docker Image
+name: Train
 
 on:
   workflow_run:
-        workflows: ['Push Docker Image']
+        workflows: ['Train']
         types: [completed]
 
 jobs:
