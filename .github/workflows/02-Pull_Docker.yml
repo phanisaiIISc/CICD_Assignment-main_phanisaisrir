@@ -2,7 +2,7 @@ name: Pull and Run Docker Image
 
 on:
   workflow_run:
-        workflows: ['Push Docker Image']
+        workflows: ['Push Docker Image','SampleFlow']
         types: [completed]
 
 jobs:
