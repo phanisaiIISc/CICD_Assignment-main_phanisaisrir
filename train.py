@@ -4,9 +4,7 @@ import pickle
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 
-df1 = pd.read_csv("data/train.csv")
-df2 = pd.read_csv("data/test.csv")
-df = pd.concat([df1,df2])
+df = pd.read_csv("data/train.csv")
 print(len(df))
 #exit(0)
 X = df.drop(columns=['Disease']).to_numpy()
