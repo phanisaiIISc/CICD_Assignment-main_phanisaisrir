@@ -1,0 +1,37 @@
+name: TrainAndBuildDocker
+#This Workflow gets triggered once a PR request is raised. The workflow picks code from PR branch and pushes to Docker Registery
+#Test.Yml workflow will get executed once this workflow is completed irrespective of status.
+on:
+  #push:
+  #  branches: [ "main" ]
+  #Start the workflow once PR is created to merge code into Main branch
+  pull_request:
+    branches: [ "main" ]
+    
+
+jobs:
+#This job is to build the Docker file and push it to a docker repository
+  build_docker:
+
+    runs-on: ubuntu-latest
+
+    steps:
+        #Check out the latest code
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Login to Docker Hub
+        #This action builds the Docker image and pushes to the docker repository. Single action takes care of this activity
+        uses: docker/login-action@v2 #Login to Docker 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }} # User Name and Token are stored in GitHub Secrets.
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v4 #This actions builds and pushes the docker image #Docker Repo Name along with Version
+        with:
+          push: true
+          tags: chphanisaisriram/mlops:ci_cd_v1 #Docker Repo Name
+          
