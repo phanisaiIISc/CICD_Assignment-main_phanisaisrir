@@ -1,4 +1,4 @@
-name: Pull Image and Test
+name: Pull-Image-And-Test-Reusable
 on:
   workflow_call
 
