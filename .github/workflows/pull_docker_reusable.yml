@@ -8,6 +8,11 @@ jobs:
     #Condition to check if the parent workflow is successflow
     #if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
+      #Check out the latest code
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
         #Pull the Docker image only if the Parent workflow got Succeeded
       - run: echo "Starting to pull Latest Docker Image"
       - name: run the image #Start the Container and execute test.py script.
