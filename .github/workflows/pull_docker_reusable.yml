@@ -6,6 +6,9 @@ jobs:
   Docker-Build-Success:
     runs-on: ubuntu-latest
     steps:
+      - name: Check the PWD
+        run: |
+          echo pwd
       # Check out the latest code
       - name: Checkout code
         uses: actions/checkout@v3
