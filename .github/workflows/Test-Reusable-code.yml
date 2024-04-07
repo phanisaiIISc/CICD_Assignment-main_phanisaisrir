@@ -1,4 +1,4 @@
-name: TrainAndBuildDocker
+name: TrainAndBuildDocker_test
 
 on:
   push:
@@ -38,7 +38,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
       - name: Use local my-action
-        uses: CICD_Assignment-main_phanisaisrir/.github/workflows/pull_docker_reusable.yml@main
+        uses: ./.github/workflows/pull_docker_reusable.yml@main
   fail-job:
       runs-on: ubuntu-latest  
       needs: build_docker
