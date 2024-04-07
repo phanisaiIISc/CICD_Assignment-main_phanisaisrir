@@ -1,34 +1,23 @@
 name: Pull-Image-And-Test-Reusable
 on:
-  workflow_call
+  workflow_call:
 
 jobs:
   Docker-Build-Success:
     runs-on: ubuntu-latest
-    #Condition to check if the parent workflow is successflow
-    #if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      #Check out the latest code
-      - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref }}
-          fetch-depth: 0
-        #Pull the Docker image only if the Parent workflow got Succeeded
-      - run: echo "Starting to pull Latest Docker Image"
-      - name: run the image #Start the Container and execute test.py script.
+      # Check out the latest code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Pull the Docker image only if the Parent workflow got Succeeded
+      - name: Pull Docker image
+        run: echo "Starting to pull Latest Docker Image"
+
+      - name: Run the image
         run: |
           OUTPUT=$(docker run chphanisaisriram/mlops:ci_cd_v1)
           echo "Score:"
           echo "$OUTPUT"
-          if [[ `echo "$OUTPUT 0.35" | awk '{print ($1 < $2)}'` == 1 ]]; then echo "Insufficient Accuracy" && exit 1;  fi
+          if [[ `echo "$OUTPUT 0.35" | awk '{print ($1 < $2)}'` == 1 ]]; then echo "Insufficient Accuracy" && exit 1; fi
           echo "test.py script executed Successfully."
-      
-  #Docker-Build-Failed:
-    #Condition to check if the parent Workflow is failed.
-    #if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-    #runs-on: ubuntu-latest
-    #steps:
-    #- name: fail the job #Fail the Job since Parent Job is failed, since Docker image is not available in the repo.
-    #  run: | 
-    #      echo "Workflow to build Docker file failed. So, Unable to pull the latest Docker file."
-    #      exit 1
