@@ -1,6 +1,6 @@
 name: Pull-Image-And-Test-Reusable
 on:
-  workflow_call:
+  workflow_dispatch:
 
 jobs:
   Docker-Build-Success:
