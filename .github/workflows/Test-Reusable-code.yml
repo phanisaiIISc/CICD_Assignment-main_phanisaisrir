@@ -27,10 +27,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Build and push
-        uses: docker/build-push-action@v4 #This actions builds and pushes the docker image #Docker Repo Name along with Version
-        with:
-          push: true
-          tags: chphanisaisriram/mlops:ci_cd_v1 #Docker Repo Name
+        run: |
+          echo "Sample"
           
   call-re-usable-workflow:
     runs-on: ubuntu-latest
