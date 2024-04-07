@@ -47,6 +47,4 @@ jobs:
       - name: fail the jobs as docker image build job is failed
         run: |
           echo "Fail the job since the docker job to build and push docker image job got failed"
-          exit 1
-    
-		  
+          exit 1 
