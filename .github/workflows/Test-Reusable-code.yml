@@ -38,7 +38,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
       - name: Use local my-action
-        uses: ./.github/workflows/pull_docker_reusable.yml
+        uses: CICD_Assignment-main_phanisaisrir/.github/workflows/pull_docker_reusable.yml@main
   fail-job:
       runs-on: ubuntu-latest  
       needs: build_docker
